@@ -7,7 +7,7 @@ class Product(models.Model):
     description = models.CharField(max_length=512)
     price = models.IntegerField()
     available = models.IntegerField()
-    image = models.ImageField()
+    image = models.ImageField(upload_to="media/products")
 
     class Meta:
         db_table = "product"
