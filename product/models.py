@@ -11,3 +11,6 @@ class Product(models.Model):
 
     class Meta:
         db_table = "product"
+
+    def __repr__(self):
+        return f"Product<id={self.id}>"

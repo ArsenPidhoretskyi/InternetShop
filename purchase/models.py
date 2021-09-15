@@ -12,3 +12,6 @@ class Purchase(models.Model):
 
     class Meta:
         db_table = "purchase"
+
+    def __repr__(self):
+        return f"Purchase<id={self.id}>"

@@ -1,9 +1,9 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <form id="contactForm" method="POST">
+    <form id="product" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit" name="contact-submit" class="btn btn-success btn-lg"/>
+        <input type="submit" name="create" class="btn btn-success btn-lg"/>
     </form>
 {% endblock content %}

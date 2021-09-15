@@ -9,3 +9,6 @@ class Discount(models.Model):
 
     class Meta:
         db_table = "discount"
+
+    def __repr__(self):
+        return f"Discount<id={self.id}>"

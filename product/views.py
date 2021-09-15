@@ -30,10 +30,10 @@ class ProductCreateView(WithContextView):
         return render(request, self.template_name, self.context)
 
     def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
+        form = self.form_class(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse("product:new_product"))
+            entry = form.save()
+            return HttpResponseRedirect(reverse("product", args=(entry.id,)))
         self.context["form"] = form
         return render(request, self.template_name, self.context)
 
