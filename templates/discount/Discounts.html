@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if dicounts != None %}
-        {% for dicount in dicounts %}
+    {% if discounts != None %}
+        {% for discount in discounts %}
             <div>
-            {{ dicount.value }}
+            {{ discount.value }}
             </div>
         {% endfor %}
     {% else %}
