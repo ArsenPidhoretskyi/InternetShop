@@ -1,16 +1,10 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.views import View
 
+from core.views import WithContextView
 from . import services
 from .forms import ProductForm
-
-
-class WithContextView(View):
-    def __init__(self, **kwargs):
-        super(WithContextView, self).__init__(**kwargs)
-        self.context = dict()
 
 
 class ProductsView(WithContextView):

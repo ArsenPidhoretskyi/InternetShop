@@ -1,4 +1,8 @@
 from django.urls import path
 from . import views
 
-urlpatterns = []
+urlpatterns = [
+    path("Discounts", views.DiscountsView.as_view(), name="discounts"),
+    path("Discounts/<int:identifier>", views.DiscountView.as_view(), name="discount"),
+    path("CreateDiscount", views.DiscountCreateView.as_view(), name="new_discount"),
+]

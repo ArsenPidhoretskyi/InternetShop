@@ -13,7 +13,3 @@ def get_product(identifier: int):
         return product
     except ObjectDoesNotExist:
         return None
-
-
-def create_product(properties):
-    pass
