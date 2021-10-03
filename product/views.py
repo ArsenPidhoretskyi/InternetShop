@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from core.views import WithContextView
+from core.views import WithContextView, SuperuserRequiredMixin
 from . import services
 from .forms import ProductForm
 
@@ -15,7 +15,7 @@ class ProductsView(WithContextView):
         return render(request, self.template_name, self.context)
 
 
-class ProductCreateView(WithContextView):
+class ProductCreateView(SuperuserRequiredMixin, WithContextView):
     template_name = "product/CreateProduct.html"
     form_class = ProductForm
 

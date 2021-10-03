@@ -1,0 +1,126 @@
+.wrapper {
+  width: 20%;
+  height: 400px;
+  background: white;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: none;
+  transform: scale(0.95);
+  transition: box-shadow 0.5s, transform 0.5s;
+}
+.wrapper:hover {
+  transform: scale(1);
+  box-shadow: 5px 20px 30px rgba(0, 0, 0, 0.2);
+}
+.wrapper .custom-card {
+  width: 100%;
+  height: 100%;
+}
+.wrapper .custom-card .top {
+  height: 75%;
+  width: 100%;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  -o-background-size: 100%;
+  background-size: 100%;
+}
+.wrapper .custom-card .bottom {
+  width: 200%;
+  height: 25%;
+  transition: transform 0.5s;
+}
+.wrapper .custom-card .bottom.clicked {
+  transform: translateX(-50%);
+}
+.wrapper .custom-card .bottom h3 {
+  margin: 0;
+  padding: 0;
+}
+.wrapper .custom-card .bottom p {
+  margin: 0;
+  padding: 0;
+}
+.wrapper .custom-card .bottom .left {
+  height: 100%;
+  width: 50%;
+  background: #f4f4f4;
+  position: relative;
+  float: left;
+}
+.wrapper .custom-card .bottom .left .details {
+  box-sizing: initial;
+  padding: 20px;
+  float: left;
+  width: calc(70% - 40px);
+}
+.wrapper .custom-card .bottom .left .buy {
+  float: right;
+  width: calc(30% - 2px);
+  height: 100%;
+  background: #f1f1f1;
+  transition: background 0.5s;
+  border-left: solid thin rgba(0, 0, 0, 0.1);
+}
+.wrapper .custom-card .bottom .left .buy i {
+  font-size: 30px;
+  padding: 30px;
+  color: #254053;
+  transition: transform 0.5s;
+}
+.wrapper .custom-card .bottom .left .buy:hover {
+  background: #A6CDDE;
+}
+.wrapper .custom-card .bottom .left .buy:hover i {
+  transform: translateY(5px);
+  color: #00394B;
+}
+.wrapper .custom-card .bottom .right {
+  width: 50%;
+  background: #A6CDDE;
+  color: white;
+  float: right;
+  height: 200%;
+  overflow: hidden;
+}
+.wrapper .custom-card .bottom .right .details {
+  box-sizing: initial;
+  padding: 20px;
+  float: right;
+  width: calc(70% - 40px);
+}
+.wrapper .custom-card .bottom .right .done {
+  width: calc(30% - 2px);
+  float: left;
+  transition: transform 0.5s;
+  border-right: solid thin rgba(255, 255, 255, 0.3);
+  height: 50%;
+}
+.wrapper .custom-card .bottom .right .done i {
+  font-size: 30px;
+  padding: 30px;
+  color: white;
+}
+.wrapper .custom-card .bottom .right .remove {
+  width: calc(30% - 1px);
+  clear: both;
+  border-right: solid thin rgba(255, 255, 255, 0.3);
+  height: 60%;
+  background: #BC3B59;
+  transition: transform 0.5s, background 0.5s;
+}
+.wrapper .custom-card .bottom .right .remove:hover {
+  background: #9B2847;
+}
+.wrapper .custom-card .bottom .right .remove:hover i {
+  transform: translateY(5px);
+}
+.wrapper .custom-card .bottom .right .remove i {
+  transition: transform 0.5s;
+  font-size: 30px;
+  padding: 30px;
+  color: white;
+}
+.wrapper .custom-card .bottom .right:hover .remove, .wrapper .custom-card .bottom .right:hover .done {
+  transform: translateY(-100%);
+}

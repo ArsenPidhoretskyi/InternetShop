@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from core.views import WithContextView
+from core.views import WithContextView, SuperuserRequiredMixin
 from . import services
 from .forms import DiscountFrom
 
@@ -15,7 +15,7 @@ class DiscountsView(WithContextView):
         return render(request, self.template_name, self.context)
 
 
-class DiscountCreateView(WithContextView):
+class DiscountCreateView(SuperuserRequiredMixin, WithContextView):
     template_name = "discount/CreateDiscount.html"
     form_class = DiscountFrom
 

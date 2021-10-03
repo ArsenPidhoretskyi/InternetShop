@@ -23,10 +23,10 @@ from product.views import ProductsView
 urlpatterns = [
     path("", ProductsView.as_view()),
     path("admin/", admin.site.urls),
-    path("accounts/", include("django.contrib.auth.urls")),
     path("", include("purchase.urls")),
     path("", include("discount.urls")),
     path("", include("product.urls")),
+    path("", include("user.urls")),
 ]
 
 if settings.DEBUG:

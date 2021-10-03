@@ -1,14 +1,51 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Available products{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/card.css' %}">
+{% endblock stylesheets %}
 
 {% block content %}
     {% if products != None %}
         {% for product in products %}
-            <div>
-                {{ product.name }}
-                <img src="{{ product.image.url }}" alt="">
+            <div class="wrapper">
+                <div class="custom-card">
+                    <div class="top" style="background: url({{ product.image.url }}) no-repeat center">
+                    </div>
+                    <div class="bottom">
+                        <div class="left">
+                            <div class="details">
+                                <h3>{{ product.name }}</h3>
+                                <p>{{ product.price }}$</p>
+                            </div>
+                            <div class="buy"><i class="material-icons">add_shopping_cart</i></div>
+                        </div>
+                        <div class="right">
+                            <div class="done"><i class="material-icons">done</i></div>
+                            <div class="details">
+                                <h3>{{ product.name }}</h3>
+                                <p>Added to your cart</p>
+                            </div>
+                            <div class="remove"><i class="material-icons">clear</i></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         {% endfor %}
     {% else %}
         <h3> At current moment no available products</h3>
     {% endif %}
 {% endblock content %}
+
+{% block javascripts %}
+    <script>
+        $(".buy").click(function () {
+            $(".bottom").addClass("clicked");
+        });
+
+        $(".remove").click(function () {
+            $(".bottom").removeClass("clicked");
+        });
+    </script>
+{% endblock javascripts %}
