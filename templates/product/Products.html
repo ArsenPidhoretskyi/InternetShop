@@ -3,49 +3,129 @@
 
 {% block title %}Available products{% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/card.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/layout.css' %}">
 {% endblock stylesheets %}
 
 {% block content %}
-    {% if products != None %}
-        {% for product in products %}
-            <div class="wrapper">
-                <div class="custom-card">
-                    <div class="top" style="background: url({{ product.image.url }}) no-repeat center">
-                    </div>
-                    <div class="bottom">
-                        <div class="left">
-                            <div class="details">
-                                <h3>{{ product.name }}</h3>
-                                <p>{{ product.price }}$</p>
-                            </div>
-                            <div class="buy"><i class="material-icons">add_shopping_cart</i></div>
-                        </div>
-                        <div class="right">
-                            <div class="done"><i class="material-icons">done</i></div>
-                            <div class="details">
-                                <h3>{{ product.name }}</h3>
-                                <p>Added to your cart</p>
-                            </div>
-                            <div class="remove"><i class="material-icons">clear</i></div>
-                        </div>
-                    </div>
+    <div class="row mt-5 mx-2">
+        <div class="col-3">
+            <section class="card">
+                <div class="card-body">
+                    <form method="GET">
+                        <label class="w-100">
+                            <input type="text" name="search"
+                                   {% if search is not None %}
+                                       value="{{ search }}"
+                                    {% endif %}
+                                   placeholder="Search" class="form-control"/>
+                        </label>
+                        <button class="btn mt-2 w-100 btn-primary align-items-center rounded"
+                                type="submit" value="Submit">Search
+                        </button>
+                    </form>
                 </div>
-            </div>
-        {% endfor %}
-    {% else %}
-        <h3> At current moment no available products</h3>
-    {% endif %}
+            </section>
+
+            <section class="card">
+                <header class="card-header">
+                    Category
+                </header>
+                <div class="card-body">
+                    <nav class="collapse sub-nav">
+                        <ul class="ul-without-style mb-0 py-3 pt-md-1">
+                            {% for category, sub_categories in categories.items %}
+                                <li class="mb-1">
+                                    <button class="btn align-items-center rounded collapsed main-type-button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapse{{ category }}"
+                                            aria-expanded="false">
+                                        {{ category }}
+                                    </button>
+                                    <div class="collapse" id="collapse{{ category }}">
+                                        <ul class="ul-without-style fw-normal pb-1 small">
+                                            {% for sub_category in sub_categories %}
+                                                <li class="m-2">
+                                                    <a href="{% url 'products' %}?type={{ sub_category }}"
+                                                       class="align-items-center rounded">
+                                                        {{ sub_category }}
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                </div>
+            </section>
+
+            <section class="card">
+                <header class="card-header">
+                    Price Range
+                </header>
+                <div class="card-body">
+                    <form method="GET">
+                        <div>
+                            <label for="price-min">From: </label>
+                            <input class="price-range" type="number" name="price_min" id="price-min"
+                                   value="{{ price_range.min }}"
+                                   min="{{ price_range.min }}" max="{{ price_range.max }}">
+                        </div>
+                        <div class="mt-2">
+                            <label for="price-max">To: </label>
+                            <input class="price-range" type="number" name="price_max" id="price-max"
+                                   value="{{ price_range.max }}"
+                                   min="{{ price_range.min }}" max="{{ price_range.max }}">
+                        </div>
+                        <button class="btn mt-2 w-100 btn-primary align-items-center rounded"
+                                type="submit" value="Submit">Filter
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <div class="col-9">
+            {% url 'products' as url %}
+            {% include 'includes/pagination.html' with url=url %}
+
+            {% if products != None %}
+                <div class="product-list">
+                    {% for product in products %}
+                        {% if forloop.counter0|divisibleby:3 %}
+                            <div class="row">
+                        {% endif %}
+
+                        <div class="col-md-4">
+                            <section class="card">
+                                <div class="pro-img-box">
+                                    <img src="{{ product.image.url }}" width="250" height="250" alt=""/>
+                                    <a href="{% url 'add_to_cart' product.id %}" class="add-to-cart center-absolute">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </a>
+                                </div>
+
+                                <div class="card-body text-center">
+                                    <h4>
+                                        <a href="{% url 'product' product.id %}" class="product-title">
+                                            {{ product.name }}
+                                        </a>
+                                    </h4>
+                                    <p class="price">{{ product.price }}$</p>
+                                </div>
+                            </section>
+                        </div>
+
+                        {% if forloop.counter|divisibleby:3 %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <h3> At current moment no available products</h3>
+            {% endif %}
+        </div>
+    </div>
 {% endblock content %}
 
 {% block javascripts %}
-    <script>
-        $(".buy").click(function () {
-            $(".bottom").addClass("clicked");
-        });
-
-        $(".remove").click(function () {
-            $(".bottom").removeClass("clicked");
-        });
-    </script>
 {% endblock javascripts %}

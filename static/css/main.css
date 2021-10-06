@@ -1,0 +1,41 @@
+body{
+    background-color: #cedeff;
+}
+
+.sub-nav{
+    display: block!important;
+}
+
+.sub-nav a{
+    text-decoration: none;
+    display: block!important;
+}
+
+.ul-without-style{
+    padding-left: 0;
+    list-style: none;
+}
+
+.price-range{
+    float: right!important;
+    clear: both!important;
+    width: 50%;
+}
+
+.add-to-cart{
+    background: #fc5959;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    border: 3px solid #fff;
+}
+
+.add-to-cart i {
+    color: #fff;
+    font-size: 25px;
+    line-height: 42px;
+}

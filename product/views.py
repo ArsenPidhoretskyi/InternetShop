@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse
 
 from core.views import WithContextView, SuperuserRequiredMixin
-from . import services
+from .services import GetProducts, FilterParams, get_product
 from .forms import ProductForm
 
 
@@ -11,7 +11,8 @@ class ProductsView(WithContextView):
     template_name = "product/Products.html"
 
     def get(self, request, *args, **kwargs):
-        self.context["products"] = services.get_products()
+        filter_params = FilterParams(request.GET)
+        self.context = GetProducts(filter_params).get_context()
         return render(request, self.template_name, self.context)
 
 
@@ -36,5 +37,10 @@ class ProductView(WithContextView):
     template_name = "product/Product.html"
 
     def get(self, request, identifier: int, *args, **kwargs):
-        self.context["product"] = services.get_product(identifier)
+        self.context["product"] = get_product(identifier)
         return render(request, "product/Product.html", self.context)
+
+
+class AddToCart(WithContextView):
+    def post(self, request, identifier: int):
+        add_product_to_cart(request.user, identifier)

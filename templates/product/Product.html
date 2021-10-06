@@ -1,1 +1,30 @@
 {% extends 'base.html' %}
+{% load static %}
+
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/product.css' %}">
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="row align-items-center rounded mt-5 mx-2">
+        <div class="col-xl-8 col-lg-12">
+            <img class="img-thumbnail rounded mx-auto d-block" src="{{ product.image.url }}" alt=""/>
+        </div>
+
+        <div class="col-xl-4 col-lg-12">
+            <div class="product mx-auto">
+                <span class="category"></span>
+                <p class="fw-bold name">{{ product.name }}</p>
+                <p class="fw-normal description">{{ product.description }}</p>
+
+                <div class="product-price mx-auto cart-btn">
+                    <span class="price fw-normal">{{ product.price }}$</span>
+                    <a href="#" class="add-to-cart">
+                        <i class="fa fa-shopping-cart"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
