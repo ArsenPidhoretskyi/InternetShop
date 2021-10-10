@@ -50,7 +50,7 @@ class GetProducts:
                 price__lte=filter_params.price_range["max"],
             )
 
-        self.products = products.order_by("-id")
+        self.products = products
         # self.categories = self.get_categories()
         self.price_range = price_range
         self.price_min = filter_params.price_range["min"]
