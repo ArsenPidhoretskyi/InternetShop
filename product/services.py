@@ -53,6 +53,8 @@ class GetProducts:
         self.products = products
         # self.categories = self.get_categories()
         self.price_range = price_range
+        self.price_min = filter_params.price_range["min"]
+        self.price_max = filter_params.price_range["max"]
         self.search = filter_params.search
         paginator = Paginator(self.products, self.ITEMS_PER_PAGE)
         self.products = paginator.page(filter_params.page)
@@ -75,6 +77,8 @@ class GetProducts:
             "price_range": self.price_range,
             "pagination": self.pagination,
             "search": self.search,
+            "price_min": self.price_min,
+            "price_max": self.price_max,
         }
 
 
@@ -89,4 +93,39 @@ def get_product(identifier: int):
 def add_product_to_cart(user, identifier: int):
     product = get_product(identifier)
     user_cart, created = Cart.objects.get_or_create(user=user)
-    entry = Entry
+    user_entries = Entry.objects.filter(cart=user_cart, product=product)
+    if user_entries:
+        entry = user_entries.first()
+        entry.quantity += 1
+        entry.save()
+    else:
+        entry = Entry.objects.create(product=product, cart=user_cart, quantity=1)
+
+    user_cart.refresh_from_db()
+    return user_cart, entry
+
+
+def remove_product_from_cart(user, identifier: int):
+    product = get_product(identifier)
+    user_cart = Cart.objects.get(user=user)
+    entry = Entry.objects.filter(cart=user_cart, product=product).first()
+
+    if entry.quantity >= 1:
+        entry.quantity -= 1
+    entry.save()
+    user_cart.refresh_from_db()
+    return user_cart, entry
+
+
+def delete_product_from_cart(user, identifier: int):
+    product = get_product(identifier)
+    user_cart = Cart.objects.get(user=user)
+    entry = Entry.objects.filter(cart=user_cart, product=product).first()
+    entry.delete()
+    user_cart.refresh_from_db()
+    return user_cart
+
+
+def get_cart_entries(user):
+    user_cart, created = Cart.objects.get_or_create(user=user)
+    return {"cart": user_cart, "entries": user_cart.entry_set.all()}

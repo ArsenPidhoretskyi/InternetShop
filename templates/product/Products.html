@@ -14,8 +14,8 @@
                     <form method="GET">
                         <label class="w-100">
                             <input type="text" name="search"
-                                   {% if search is not None %}
-                                       value="{{ search }}"
+                                    {% if search is not None %}
+                                   value="{{ search }}"
                                     {% endif %}
                                    placeholder="Search" class="form-control"/>
                         </label>
@@ -68,13 +68,13 @@
                         <div>
                             <label for="price-min">From: </label>
                             <input class="price-range" type="number" name="price_min" id="price-min"
-                                   value="{{ price_range.min }}"
+                                   value="{% if price_min %}{{ price_min }}{% else %}{{ price_range.max }}{% endif %}"
                                    min="{{ price_range.min }}" max="{{ price_range.max }}">
                         </div>
                         <div class="mt-2">
                             <label for="price-max">To: </label>
                             <input class="price-range" type="number" name="price_max" id="price-max"
-                                   value="{{ price_range.max }}"
+                                   value="{% if price_max %}{{ price_max }}{% else %}{{ price_range.max }}{% endif %}"
                                    min="{{ price_range.min }}" max="{{ price_range.max }}">
                         </div>
                         <button class="btn mt-2 w-100 btn-primary align-items-center rounded"
@@ -95,29 +95,29 @@
                             <div class="row">
                         {% endif %}
 
-                        <div class="col-md-4">
-                            <section class="card">
-                                <div class="pro-img-box">
-                                    <img src="{{ product.image.url }}" width="250" height="250" alt=""/>
-                                    <a href="{% url 'add_to_cart' product.id %}" class="add-to-cart center-absolute">
-                                        <i class="fa fa-shopping-cart"></i>
-                                    </a>
-                                </div>
-
-                                <div class="card-body text-center">
-                                    <h4>
-                                        <a href="{% url 'product' product.id %}" class="product-title">
-                                            {{ product.name }}
-                                        </a>
-                                    </h4>
-                                    <p class="price">{{ product.price }}$</p>
-                                </div>
-                            </section>
-                        </div>
-
-                        {% if forloop.counter|divisibleby:3 %}
+                    <div class="col-md-4">
+                        <section class="card">
+                            <div class="pro-img-box">
+                                <img src="{{ product.image.url }}" width="250" height="250" alt=""/>
+                                <button value="{{ product.id }}" class="add-to-cart center-absolute">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </button>
                             </div>
-                        {% endif %}
+
+                            <div class="card-body text-center">
+                                <h4>
+                                    <a href="{% url 'product' product.id %}" class="product-title">
+                                        {{ product.name }}
+                                    </a>
+                                </h4>
+                                <p class="price">{{ product.price }}$</p>
+                            </div>
+                        </section>
+                    </div>
+
+                    {% if forloop.counter|divisibleby:3 %}
+                        </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             {% else %}
@@ -128,4 +128,21 @@
 {% endblock content %}
 
 {% block javascripts %}
+    <script>
+        $("button.add-to-cart").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "{% url 'add_to_cart' %}",
+                data: {
+                    id: $(this).val(), // < note use of 'this' here
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                success: function (result) {
+                },
+                error: function (result) {
+                }
+            });
+        });
+    </script>
 {% endblock javascripts %}

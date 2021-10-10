@@ -20,11 +20,31 @@
 
                 <div class="product-price mx-auto cart-btn">
                     <span class="price fw-normal">{{ product.price }}$</span>
-                    <a href="#" class="add-to-cart">
+                    <button class="add-to-cart" value="{{ product.id }}">
                         <i class="fa fa-shopping-cart"></i>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 {% endblock content %}
+
+{% block javascripts %}
+    <script>
+        $("button.add-to-cart").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "{% url 'add_to_cart' %}",
+                data: {
+                    id: $(this).val(), // < note use of 'this' here
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                success: function (result) {
+                },
+                error: function (result) {
+                }
+            });
+        });
+    </script>
+{% endblock javascripts %}
