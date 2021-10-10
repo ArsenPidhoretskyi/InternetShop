@@ -1,0 +1,35 @@
+<div class="d-flex flex-row justify-content-between align-items-center p-2 box mt-4 px-3">
+    <div class="mr-1 col-2">
+        <img class="rounded" src="{{ entry.product.image.url }}" width="70" alt="">
+    </div>
+    <div class="d-flex flex-column align-items-center product-details col-4">
+        <span class="fw-bold">{{ entry.product.name }}</span>
+        <div class="d-flex flex-row product-desc">
+            <div class="color">
+                <span>
+                    {{ entry.product.description|truncatechars:50 }}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex flex-row align-items-center qty col-2">
+        <button value="{{ entry.product.id }}" class="black-white-icons remove-one">
+            <i class="fa fa-minus col-3"></i>
+        </button>
+
+        <h5 class="text-center mt-1 mr-1 ml-1 col-6">
+            {{ entry.quantity }}
+        </h5>
+        <button value="{{ entry.product.id }}" class="black-white-icons add-one">
+            <i class="fa fa-plus col-3"></i>
+        </button>
+    </div>
+    <div class="col-1">
+        <h5>{{ entry.total }}</h5>
+    </div>
+    <div class="d-flex align-items-center col-1">
+        <button value="{{ entry.product.id }}" class="add-to-cart btn-success delete-full">
+            <i class="fa fa-trash mb-1"></i>
+        </button>
+    </div>
+</div>

@@ -7,7 +7,7 @@
 {% endblock stylesheets %}
 
 {% block content %}
-    <div class="container rounded bg-white mt-5 mb-5">
+    <div class="container mt-5 mb-5 box">
         <form method="POST">
             {% csrf_token %}
             {{ form.errors }}
@@ -16,7 +16,7 @@
                     <div class="d-flex flex-column align-items-center text-center p-3 py-5">
                         <img alt="" class="rounded-circle mt-5" width="150px"
                              src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-                        <span class="text-black-50">{{ request.user.email }}</span><span> </span>
+                        <span class="text-white-50 mt-2">{{ request.user.email }}</span><span> </span>
                     </div>
                 </div>
                 <div class="col-md-9 border-right">
@@ -46,8 +46,8 @@
                                 {{ form.phone_number }}
                             </div>
                         </div>
-                        <div class="mt-5 text-center">
-                            <button class="btn btn-primary profile-button" type="submit">
+                        <div class="mt-5 text-center row">
+                            <button class="btn btn-primary profile-button w-50" type="submit">
                                 Save Profile
                             </button>
                         </div>

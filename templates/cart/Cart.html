@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% block title %}Cart{% endblock title %}
 {% block content %}
     <div class="container mt-5 mb-5">
         <div class="d-flex justify-content-center row">
@@ -9,51 +10,12 @@
                 </div>
 
                 {% for entry in entries %}
-                    <div class="d-flex flex-row justify-content-between align-items-center p-2 bg-white mt-4 px-3 rounded">
-                        <div class="mr-1 col-2">
-                            <img class="rounded" src="{{ entry.product.image.url }}" width="70" alt="">
-                        </div>
-                        <div class="d-flex flex-column align-items-center product-details col-4">
-                            <span class="font-weight-bold">{{ entry.product.name }}</span>
-                            <div class="d-flex flex-row product-desc">
-                                <div class="color">
-                                <span class="font-weight-bold">
-                                    {{ entry.product.description|truncatechars:50 }}
-                                </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex flex-row align-items-center qty col-2">
-                            <button value="{{ entry.product.id }}"
-                                    class="black-white-icons remove-one">
-                                <i class="fa fa-minus col-3"></i>
-                            </button>
-
-                            <h5 class="text-center text-grey mt-1 mr-1 ml-1 col-6">
-                                {{ entry.quantity }}
-                            </h5>
-                            <button value="{{ entry.product.id }}"
-                                    class="black-white-icons add-one">
-                                <i class="fa fa-plus col-3"></i>
-                            </button>
-                        </div>
-                        <div class="col-1">
-                            <h5 class="text-grey">{{ entry.total }}</h5>
-                        </div>
-                        <div class="d-flex align-items-center col-1">
-                            <button value="{{ entry.product.id }}"
-                                    class="add-to-cart delete-full">
-                                <i class="fa fa-trash mb-1"></i>
-                            </button>
-                        </div>
-                    </div>
+                    {% include 'cart/CartItem.html' with entry=entry %}
                 {% endfor %}
 
-                <div class="d-flex flex-row justify-content-center align-items-center mt-3 p-2 bg-white rounded" id="totalSum">
-                    <h5 class="text-grey">{{ cart.total }}</h5>
-                </div>
-                <div class="d-flex flex-row align-items-center mt-3 p-2 bg-white rounded">
-                    <button class="w-100 btn btn-warning btn-block btn-lg ml-2 pay-button" type="button">
+                <div class="justify-content-center align-items-center mt-3 p-2 box" id="totalSum">
+                    <h5 class="w-100">{{ cart.total }}</h5>
+                    <button class="w-100 btn btn-success btn-lg ml-2 pay-button" type="button">
                         Pay
                     </button>
                 </div>

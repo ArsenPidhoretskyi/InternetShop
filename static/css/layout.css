@@ -8,6 +8,10 @@
     font-weight: 300;
 }
 
+.box .card-header {
+    color: white!important;
+}
+
 .main-type-button {
     width: 100%!important;
     color: #3b3b3b!important;

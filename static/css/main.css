@@ -1,25 +1,22 @@
-body{
-    background-color: #cedeff;
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(to right, #b92b27, #1565c0)
 }
 
-.sub-nav{
-    display: block!important;
+.sub-nav {
+    display: block !important;
 }
 
-.sub-nav a{
+.sub-nav a {
     text-decoration: none;
-    display: block!important;
+    display: block !important;
 }
 
-.ul-without-style{
+.ul-without-style {
     padding-left: 0;
     list-style: none;
-}
-
-.price-range{
-    float: right!important;
-    clear: both!important;
-    width: 50%;
 }
 
 .add-to-cart{
@@ -40,20 +37,57 @@ body{
     line-height: 42px;
 }
 
-.black-white-icons{
-    background: #fff;
+.black-white-icons {
+    background: black;
     width: 50px;
     height: 50px;
     border-radius: 50%;
     -webkit-border-radius: 50%;
-    color: #000;
+    color: white;
     display: inline-block;
     text-align: center;
-    border: 3px solid #fff;
+    border: none!important;
 }
 
 .black-white-icons i {
-    color: #000;
+    color: white;
     font-size: 25px;
     line-height: 42px;
 }
+
+.box {
+    color: white!important;
+    background: #191919;
+    text-align: center;
+    transition: 0.25s;
+    border-radius: 6px;
+}
+
+.box input {
+    background: none;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    border: 2px solid #3498db;
+    padding: 10px 10px;
+    width: 75%;
+    outline: none;
+    border-radius: 24px;
+    transition: 0.25s;
+    color: white;
+}
+
+.box button {
+    background: none;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    border: 2px solid #2ecc71;
+    outline: none;
+    color: white;
+    border-radius: 24px;
+    transition: 0.25s;
+    cursor: pointer;
+    width: 75%;
+}
+

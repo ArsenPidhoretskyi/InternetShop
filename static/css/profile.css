@@ -13,12 +13,7 @@
     background: #682773
 }
 
-.profile-button:focus {
-    background: #682773;
-    box-shadow: none
-}
-
-.profile-button:active {
+.profile-button:focus, .profile-button:active {
     background: #682773;
     box-shadow: none
 }
@@ -26,4 +21,8 @@
 .back:hover {
     color: #682773;
     cursor: pointer
+}
+
+.box input{
+    width: 100% !important;
 }
