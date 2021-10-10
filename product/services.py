@@ -28,7 +28,7 @@ class FilterParams:
 
 class GetProducts:
     PRICE_FIELD = "price"
-    ITEMS_PER_PAGE = 1
+    ITEMS_PER_PAGE = 15
 
     def __init__(self, filter_params: FilterParams):
         if filter_params.search:
