@@ -1,0 +1,6 @@
+1) Forms add new product/discount
+2) Discounts page
+3) Edit/delete product as admin
+4) Edit/delete discount as admin
+5) Button pay must create in database new row with cart items
+6) History of all payment
