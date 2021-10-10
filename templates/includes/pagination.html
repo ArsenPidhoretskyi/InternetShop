@@ -38,3 +38,29 @@
         </div>
     </div>
 </section>
+
+<script>
+    const hrefs = Array.prototype.slice.call(document.querySelectorAll("a.page-link"));
+
+    function changeHrefParams() {
+        let search = "{{ search }}";
+        let fromPrice = "{{ price_min }}";
+        let toPrice = "{{ price_max }}"
+        let paramsList = [];
+        if (search !== "None") {
+            paramsList.push(`search=${search}`);
+        }
+        if (fromPrice !== "None") {
+            paramsList.push(`fromPrice=${fromPrice}`);
+            paramsList.push(`toPrice=${toPrice}`);
+        }
+        if (paramsList) {
+            let paramHref = paramsList.join("&")
+            hrefs.map(function (currentHref) {
+                currentHref.href = `${currentHref.href}&${paramHref}`
+            })
+        }
+    }
+
+    changeHrefParams();
+</script>

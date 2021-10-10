@@ -28,7 +28,7 @@ class FilterParams:
 
 class GetProducts:
     PRICE_FIELD = "price"
-    ITEMS_PER_PAGE = 15
+    ITEMS_PER_PAGE = 1
 
     def __init__(self, filter_params: FilterParams):
         if filter_params.search:
@@ -50,7 +50,7 @@ class GetProducts:
                 price__lte=filter_params.price_range["max"],
             )
 
-        self.products = products
+        self.products = products.order_by("-id")
         # self.categories = self.get_categories()
         self.price_range = price_range
         self.price_min = filter_params.price_range["min"]

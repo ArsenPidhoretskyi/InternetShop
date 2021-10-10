@@ -68,7 +68,7 @@
                         <div>
                             <label for="price-min">From: </label>
                             <input class="price-range" type="number" name="price_min" id="price-min"
-                                   value="{% if price_min %}{{ price_min }}{% else %}{{ price_range.max }}{% endif %}"
+                                   value="{% if price_min %}{{ price_min }}{% else %}{{ price_range.min }}{% endif %}"
                                    min="{{ price_range.min }}" max="{{ price_range.max }}">
                         </div>
                         <div class="mt-2">
