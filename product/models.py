@@ -24,6 +24,9 @@ class Product(models.Model):
     def __repr__(self):
         return f"Product<id={self.id}>"
 
+    def as_dict(self):
+        return vars(self)
+
 
 class Cart(models.Model):
     id = models.BigAutoField(primary_key=True)

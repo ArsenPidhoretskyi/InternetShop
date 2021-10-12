@@ -19,10 +19,10 @@ body {
     list-style: none;
 }
 
-.add-to-cart{
+.add-to-cart {
     background: #fc5959;
     width: 50px;
-    height: 50px;
+    min-height: 50px;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     color: #fff;
@@ -46,7 +46,7 @@ body {
     color: white;
     display: inline-block;
     text-align: center;
-    border: none!important;
+    border: none !important;
 }
 
 .black-white-icons i {
@@ -56,38 +56,57 @@ body {
 }
 
 .box {
-    color: white!important;
+    color: white !important;
     background: #191919;
     text-align: center;
     transition: 0.25s;
     border-radius: 6px;
 }
 
-.box input {
+.box input, .box select, .box button, .custom-file-upload, .box div.form-floating {
     background: none;
     display: block;
     margin: 0 auto;
     text-align: center;
-    border: 2px solid #3498db;
-    padding: 10px 10px;
-    width: 75%;
     outline: none;
     border-radius: 24px;
     transition: 0.25s;
     color: white;
+}
+
+.box div.form-floating{
+    width: 75%;
+}
+
+.box > input, .box > select, .box > button, .custom-file-upload{
+    width: 75%;
+}
+
+.box input, .box select {
+    border: 2px solid #3498db;
+    padding: 10px 10px;
+}
+
+.box select {
+    color: black;
 }
 
 .box button {
-    background: none;
-    display: block;
-    margin: 0 auto;
-    text-align: center;
     border: 2px solid #2ecc71;
-    outline: none;
-    color: white;
-    border-radius: 24px;
-    transition: 0.25s;
     cursor: pointer;
-    width: 75%;
 }
 
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    margin-top: 1rem;
+    border: 2px solid #b7cc2e;
+    padding: 10px 10px;
+    transition: 0.5s;
+}
+
+.custom-file-upload:hover, .custom-file-upload:active {
+    background-color: #b7cc2e;
+}

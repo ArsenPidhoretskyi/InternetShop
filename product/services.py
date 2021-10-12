@@ -32,7 +32,7 @@ class GetProducts:
 
     def __init__(self, filter_params: FilterParams):
         if filter_params.search:
-            products = Product.objects.filter(name__contains=filter_params.search)
+            products = self.search_products(filter_params.search)
         else:
             products = Product.objects.all()
 
@@ -80,6 +80,11 @@ class GetProducts:
             "price_min": self.price_min,
             "price_max": self.price_max,
         }
+
+    @staticmethod
+    def search_products(search: str, limit=None):
+        products = Product.objects.filter(name__contains=search)
+        return products if limit is None else products[:limit]
 
 
 def get_product(identifier: int):
