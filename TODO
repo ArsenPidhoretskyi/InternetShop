@@ -4,3 +4,13 @@
 4) Edit/delete discount as admin
 5) Button pay must create in database new row with cart items
 6) History of all payment
+
+
+
+Improvements:
+1) Google/Facebook register and login
+2) Main category and subcategory
+3) Filter by category
+4) Payment System
+5) History
+6) Favourite
