@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 from decimal import Decimal
+from django.db.models import Max, Min
 
 from django.utils.datetime_safe import datetime
 
@@ -26,6 +27,15 @@ class Product(models.Model):
 
     def __repr__(self):
         return f"Product<id={self.id}>"
+
+    @property
+    def calculated_price(self):
+        discount = self.discount_set.filter(activated=True).aggregate(Max("value"))[
+            "value__max"
+        ]
+        if discount is not None:
+            return self.price * (1 - discount / 100)
+        return self.price
 
     def as_dict(self):
         response_items = ["id", "name"]
@@ -63,7 +73,7 @@ class Entry(models.Model):
 
     def save(self, **kwargs):
         previous_total = Decimal(self.total)
-        self.total = self.quantity * self.product.price
+        self.total = self.quantity * self.product.calculated_price
         self.cart.total -= previous_total - self.total
         self.cart.updated = datetime.now()
         self.cart.save()
