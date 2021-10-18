@@ -17,11 +17,44 @@
             {{ form.value }}
 
             <label for="search" class="d-none"></label>
-            <input id="search" type="text" name="search" placeholder="Enter product name" class="form-control mt-3"/>
-
-            <label for="id_description"> Product: </label>
+            <label for="id_product" class="mt-2"> Search Product: </label>
+            <input id="search" type="text" name="search" placeholder="Filter product" class="form-control mb-1"/>
             {{ form.product }}
+
+            <label for="id_url" class="mt-2"> Or insert link: </label>
+            {{ form.url }}
+
             <button class="btn btn-success btn-lg mt-3" type="submit">Create</button>
         </form>
     </div>
 {% endblock content %}
+
+{% block javascripts %}
+    <script>
+        let productSelect = document.querySelector("#id_product");
+        $("#search").change(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: "{% url 'search_products' %}",
+                data: {
+                    search: $(this).val(), // < note use of 'this' here
+                },
+                success: function (result) {
+                    $(`#${productSelect.id}`).empty().append($('<option>', {
+                        value: null,
+                        text: '---------'
+                    }));
+                    $.each(result.products, function (i, item) {
+                        $(`#${productSelect.id}`).append($('<option>', {
+                            value: item.id,
+                            text: item.name
+                        }));
+                    });
+                },
+                error: function (result) {
+                }
+            });
+        });
+    </script>
+{% endblock javascripts %}

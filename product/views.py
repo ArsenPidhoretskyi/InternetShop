@@ -43,9 +43,11 @@ class ProductView(WithContextView):
 
 class SearchProducts(View):
     def get(self, *args, **kwargs):
-        search = self.request.GET.get("search")
+        search = self.request.GET.get("search", "")
         products = GetProducts.search_products(search)
-        return JsonResponse(list(map(lambda product: product.as_dict(), products)))
+        return JsonResponse(
+            {"products": list(map(lambda product: product.as_dict(), products))}
+        )
 
 
 class CartView(WithContextView):

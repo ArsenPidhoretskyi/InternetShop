@@ -21,11 +21,15 @@ class Product(models.Model):
         db_table = "product"
         ordering = ["-created", "-id"]
 
+    def __str__(self):
+        return self.name
+
     def __repr__(self):
         return f"Product<id={self.id}>"
 
     def as_dict(self):
-        return vars(self)
+        response_items = ["id", "name"]
+        return {item: getattr(self, item) for item in response_items}
 
 
 class Cart(models.Model):
