@@ -7,21 +7,5 @@
 {% endblock stylesheets %}
 
 {% block content %}
-    <div class="d-flex flex-row justify-content-center align-items-center border-0 mt-5 mx-2 card box py-5">
-        <div class="col-xl-6 col-lg-12">
-            <img class="img-fluid rounded mx-auto d-block" src="{{ discount.product.image.url }}" alt=""/>
-        </div>
-
-        <div class="col-xl-6 col-lg-12">
-            <div class="product mx-auto">
-                <span class="category"></span>
-                <p class="fw-bold name">
-                    <a class="text-decoration-none" href="{% url 'product' discount.product.id %}">
-                    {{ discount.product.name }}
-                    </a>
-                </p>
-                <p class="fw-normal description text-white">{{ discount.value }}%</p>
-            </div>
-        </div>
-    </div>
+    {% include 'discount/DiscountItem.html' %}
 {% endblock content %}

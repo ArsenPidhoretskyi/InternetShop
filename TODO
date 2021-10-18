@@ -2,6 +2,7 @@
  1.1) Product +
  1.2) Discount +
 2) Discounts page +
+2.1) Apply discounts to product
 3) Edit/delete product as admin
 4) Edit/delete discount as admin
 5) Button pay must create in database new row with cart items

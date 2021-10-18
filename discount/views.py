@@ -1,8 +1,8 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 
-from core.views import WithContextView, SuperuserRequiredMixin
+from core.views import WithContextView, SuperuserRequiredMixin, View
 from . import services
 from .forms import DiscountFrom
 
@@ -11,7 +11,7 @@ class DiscountsView(WithContextView):
     template_name = "discount/Discounts.html"
 
     def get(self, request, *args, **kwargs):
-        self.context["discounts"] = services.get_discounts()
+        self.context["discounts"] = services.get_discounts(request.user)
         return render(request, self.template_name, self.context)
 
 
@@ -38,3 +38,11 @@ class DiscountView(WithContextView):
     def get(self, request, identifier: int, *args, **kwargs):
         self.context["discount"] = services.get_discount(identifier)
         return render(request, "discount/Discount.html", self.context)
+
+
+class DiscountStatusView(View):
+    def post(self, *args, **kwargs):
+        discount_id = self.request.POST["id"]
+        new_status = self.request.POST["status"].lower() == "true"
+        services.change_status(discount_id, new_status)
+        return JsonResponse({})
