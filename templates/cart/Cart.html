@@ -2,26 +2,30 @@
 
 {% block title %}Cart{% endblock title %}
 {% block content %}
-    <div class="container mt-5 mb-5">
-        <div class="d-flex justify-content-center row">
-            <div class="col-md-10">
-                <div class="p-2">
-                    <h4>Shopping cart</h4>
-                </div>
+    <form method="POST" action="{% url 'create_purchase' %}">
+        {% csrf_token %}
 
-                {% for entry in entries %}
-                    {% include 'cart/CartItem.html' with entry=entry %}
-                {% endfor %}
+        <div class="container mt-5 mb-5">
+            <div class="d-flex justify-content-center row">
+                <div class="col-md-10">
+                    <div class="p-2">
+                        <h4>Shopping cart</h4>
+                    </div>
 
-                <div class="justify-content-center align-items-center mt-3 p-2 box" id="totalSum">
-                    <h5 class="w-100">{{ cart.total }}</h5>
-                    <button class="w-100 btn btn-success btn-lg ml-2 pay-button" type="button">
-                        Pay
-                    </button>
+                    {% for entry in entries %}
+                        {% include 'cart/CartItem.html' with entry=entry %}
+                    {% endfor %}
+
+                    <div class="justify-content-center align-items-center mt-3 p-2 box" id="totalSum">
+                        <h5 class="w-100">{{ cart.total }}</h5>
+                        <button class="w-100 btn btn-success btn-lg ml-2 pay-button" type="submit">
+                            Pay
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 {% endblock content %}
 
 

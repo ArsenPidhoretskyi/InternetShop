@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
-# Create your views here.
+from .services import create_purchase
+from core.views import WithContextView
+
+
+class CreatePurchase(WithContextView):
+    def post(self, *args, **kwargs):
+        create_purchase(self.request.user)
+        return HttpResponseRedirect(reverse("me"))

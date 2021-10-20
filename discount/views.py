@@ -23,13 +23,13 @@ class DiscountCreateView(SuperuserRequiredMixin, WithContextView):
         self.context["form"] = self.form_class()
         return render(request, self.template_name, self.context)
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST, request.FILES)
+    def post(self, *args, **kwargs):
+        form = self.form_class(self.request.POST, self.request.FILES)
         if form.is_valid():
             entry = form.save()
             return HttpResponseRedirect(reverse("discount", args=(entry.id,)))
         self.context["form"] = form
-        return render(request, self.template_name, self.context)
+        return render(self.request, self.template_name, self.context)
 
 
 class DiscountView(WithContextView):

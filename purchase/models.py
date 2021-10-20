@@ -8,6 +8,7 @@ User = get_user_model()
 class Purchase(models.Model):
     id = models.BigAutoField(primary_key=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:

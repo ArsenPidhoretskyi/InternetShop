@@ -1,4 +1,6 @@
 from django.urls import path
 from . import views
 
-urlpatterns = []
+urlpatterns = [
+    path(r"Purchase", views.CreatePurchase.as_view(), name="create_purchase"),
+]
