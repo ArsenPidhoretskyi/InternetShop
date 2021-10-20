@@ -40,6 +40,11 @@ class ProductView(WithContextView):
         self.context["product"] = get_product(identifier)
         return render(self.request, self.template_name, self.context)
 
+    @staticmethod
+    def delete(*args, identifier: int, **kwargs):
+        get_product(identifier).delete()
+        return JsonResponse({"url": reverse("products")})
+
 
 class SearchProducts(View):
     def get(self, *args, **kwargs):

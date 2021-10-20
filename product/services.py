@@ -133,4 +133,5 @@ def delete_product_from_cart(user, identifier: int):
 
 def get_cart_entries(user):
     user_cart, created = Cart.objects.get_or_create(user=user)
+    user_cart.recalculate()
     return {"cart": user_cart, "entries": user_cart.entry_set.all()}

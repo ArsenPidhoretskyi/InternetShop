@@ -55,6 +55,10 @@ class Cart(models.Model):
     def save(self, **kwargs):
         super(Cart, self).save(**kwargs)
 
+    def recalculate(self):
+        self.total = sum(entry.total for entry in self.entry_set.all())
+        self.save()
+
     def __repr__(self):
         return f"Cart<id={self.id}>"
 

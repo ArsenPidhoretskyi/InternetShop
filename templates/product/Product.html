@@ -7,21 +7,34 @@
 {% endblock stylesheets %}
 
 {% block content %}
-    <div class="d-flex flex-row justify-content-center align-items-center border-0 mt-5 mx-2 card box py-5">
-        <div class="col-xl-6 col-lg-12">
-            <img class="img-fluid rounded mx-auto d-block" src="{{ product.image.url }}" alt=""/>
+    <div class="border-0 mt-3 mx-2 card box py-2">
+        <div class="d-flex flex-row justify-content-end align-items-end mt-0 me-4">
+            <div>
+                <button class="btn btn-success btn-lg mt-3 d-inline-block edit" value="{{ product.id }}">
+                    <i class="fa fa-edit"></i>
+                </button>
+                <button class="btn btn-success btn-lg mt-3 d-inline-block delete" value="{{ product.id }}">
+                    <i class="fa fa-trash"></i>
+                </button>
+            </div>
         </div>
 
-        <div class="col-xl-6 col-lg-12">
-            <div class="product mx-auto">
-                <span class="category"></span>
-                <p class="fw-bold name">{{ product.name }}</p>
-                <p class="fw-normal description">{{ product.description }}</p>
+        <div class="d-flex flex-row justify-content-center align-items-center border-0 mx-2 card box">
+            <div class="col-xl-6 col-lg-12">
+                <img class="img-fluid rounded mx-auto d-block" src="{{ product.image.url }}" alt=""/>
+            </div>
 
-                <div class="product-price mx-auto cart-btn">
-                    <button class="btn btn-success btn-lg mt-3 add-to-cart" value="{{ product.id }}">
-                        {{ product.calculated_price }}$ <i class="fa fa-shopping-cart"></i>
-                    </button>
+            <div class="col-xl-6 col-lg-12">
+                <div class="product mx-auto">
+                    <span class="category"></span>
+                    <p class="fw-bold name">{{ product.name }}</p>
+                    <p class="fw-normal description">{{ product.description }}</p>
+
+                    <div class="product-price mx-auto cart-btn">
+                        <button class="btn btn-success btn-lg mt-3 add-to-cart" value="{{ product.id }}">
+                            {{ product.calculated_price }}$ <i class="fa fa-shopping-cart"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -36,10 +49,29 @@
                 type: "POST",
                 url: "{% url 'add_to_cart' %}",
                 data: {
-                    id: $(this).val(), // < note use of 'this' here
+                    id: $(this).val(),
                     csrfmiddlewaretoken: "{{ csrf_token }}"
                 },
                 success: function (result) {
+                },
+                error: function (result) {
+                }
+            });
+        });
+
+        $("button.delete").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "DELETE",
+                url: "/Products/" + $(this).val(),
+                data: {
+                    identifier: $(this).val(),
+                },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+                },
+                success: function (result) {
+                    window.location = result["url"];
                 },
                 error: function (result) {
                 }

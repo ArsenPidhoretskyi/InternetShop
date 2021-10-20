@@ -1,0 +1,19 @@
+<div class="col-md-4">
+    <section class="card">
+        <div class="pro-img-box">
+            <img src="{{ product.image.url }}" width="250" height="250" alt=""/>
+            <button value="{{ product.id }}" class="add-to-cart center-absolute">
+                <i class="fa fa-shopping-cart"></i>
+            </button>
+        </div>
+
+        <div class="card-body text-center">
+            <h4>
+                <a href="{% url 'product' product.id %}" class="product-title">
+                    {{ product.name }}
+                </a>
+            </h4>
+            <p class="price">{{ product.calculated_price }}$</p>
+        </div>
+    </section>
+</div>
