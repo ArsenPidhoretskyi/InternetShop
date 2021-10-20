@@ -6,12 +6,12 @@
         <div class="d-flex justify-content-center row">
             <div class="col-md-10">
                 <div class="p-2">
-                    <h4>Payments</h4>
-                </div>
+                    <h4>Payments </h4>
+                    {% for order in orders %}
+                        {% include 'purchase/OrderItem.html' with order=order %}
+                    {% endfor %}
 
-                {% for purchase in purchases %}
-                    {% include 'purchase/PurchasedItem.html' with purchase=purchase %}
-                {% endfor %}
+                </div>
             </div>
         </div>
     </div>

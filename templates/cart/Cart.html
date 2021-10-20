@@ -2,7 +2,7 @@
 
 {% block title %}Cart{% endblock title %}
 {% block content %}
-    <form method="POST" action="{% url 'create_purchase' %}">
+    <form method="POST" action="{% url 'create_order' %}">
         {% csrf_token %}
 
         <div class="container mt-5 mb-5">
