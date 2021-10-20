@@ -10,9 +10,9 @@
     <div class="border-0 mt-3 mx-2 card box py-2">
         <div class="d-flex flex-row justify-content-end align-items-end mt-0 me-4">
             <div>
-                <button class="btn btn-success btn-lg mt-3 d-inline-block edit" value="{{ product.id }}">
+                <a class="btn btn-success btn-lg mt-3 d-inline-block edit standard-button" href="{% url 'update_product' product.id %}">
                     <i class="fa fa-edit"></i>
-                </button>
+                </a>
                 <button class="btn btn-success btn-lg mt-3 d-inline-block delete" value="{{ product.id }}">
                     <i class="fa fa-trash"></i>
                 </button>
@@ -64,9 +64,22 @@
             $.ajax({
                 type: "DELETE",
                 url: "/Products/" + $(this).val(),
-                data: {
-                    identifier: $(this).val(),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
                 },
+                success: function (result) {
+                    window.location = result["url"];
+                },
+                error: function (result) {
+                }
+            });
+        });
+
+        $("button.edit").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: "/UpdateProduct/" + $(this).val(),
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
                 },

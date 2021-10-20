@@ -63,7 +63,7 @@ body {
     border-radius: 6px;
 }
 
-.box input, .box select, .box button, .custom-file-upload, .box div.form-floating {
+.box input, .box select, .box button, .custom-file-upload, .box div.form-floating, .box .standard-button {
     background: none;
     display: block;
     margin: 0 auto;
@@ -87,7 +87,7 @@ body {
     padding: 10px 10px;
 }
 
-.box button {
+.box button, .box .standard-button {
     border: 2px solid #2ecc71;
     cursor: pointer;
 }
@@ -105,4 +105,8 @@ input[type="file"] {
 
 .custom-file-upload:hover, .custom-file-upload:active {
     background-color: #b7cc2e;
+}
+
+.box .standard-button:hover, .box .standard-button:active{
+    background-color: #146c43;
 }

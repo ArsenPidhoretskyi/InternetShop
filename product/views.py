@@ -35,10 +35,31 @@ class ProductCreateView(SuperuserRequiredMixin, WithContextView):
 
 class ProductView(WithContextView):
     template_name = "product/Product.html"
+    form_class = ProductForm
 
     def get(self, *args, identifier: int, **kwargs):
         self.context["product"] = get_product(identifier)
         return render(self.request, self.template_name, self.context)
+
+
+class UpdateProduct(WithContextView):
+    template_name = "product/CreateProduct.html"
+    form_class = ProductForm
+
+    def get(self, *args, identifier: int, **kwargs):
+        self.context["form"] = self.form_class(instance=get_product(identifier))
+        return render(self.request, self.template_name, self.context)
+
+    def post(self, *args, identifier: int, **kwargs):
+        self.context["product"] = get_product(identifier)
+        form = self.form_class(
+            self.request.POST, self.request.FILES, instance=self.context["product"]
+        )
+        if form.is_valid():
+            entry = form.save()
+            return HttpResponseRedirect(reverse("product", args=(entry.id,)))
+        self.context["form"] = form
+        return render(self.request, "product/CreateProduct.html", self.context)
 
     @staticmethod
     def delete(*args, identifier: int, **kwargs):
