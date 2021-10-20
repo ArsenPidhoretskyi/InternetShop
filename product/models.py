@@ -56,7 +56,7 @@ class Cart(models.Model):
         super(Cart, self).save(**kwargs)
 
     def recalculate(self):
-        self.total = sum(entry.total for entry in self.entry_set.all())
+        self.total = sum(entry.recalculate() for entry in self.entry_set.all())
         self.save()
 
     def __repr__(self):
@@ -82,6 +82,11 @@ class Entry(models.Model):
         self.cart.updated = datetime.now()
         self.cart.save()
         super(Entry, self).save(**kwargs)
+
+    def recalculate(self):
+        self.total = self.quantity * self.product.calculated_price
+        self.save()
+        return self.total
 
     def delete(self, **kwargs):
         self.cart.total -= self.total
