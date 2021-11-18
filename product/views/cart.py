@@ -24,8 +24,8 @@ class AddToCartView(View):
 class RemoveFromCartView(View):
     def post(self, *args, **kwargs):
         product_id = self.request.POST["id"]
-        cart, product = remove_product_from_cart(self.request.user, product_id)
-        response = {"new_total": cart.total, "new_product_total": product.total}
+        cart, entry = remove_product_from_cart(self.request.user, product_id)
+        response = {"new_total": cart.total, "new_product_total": entry.total, "new_count": entry.quantity}
         return JsonResponse(response)
 
 

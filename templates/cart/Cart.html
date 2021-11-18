@@ -45,7 +45,7 @@
                 success: function (result) {
                     let textElement = e.currentTarget.parentElement.children[1];
                     let previousValue = parseInt(textElement.innerText);
-                    textElement.innerText = previousValue - 1;
+                    textElement.innerText = result["new_count"];
 
                     let valueElement = e.currentTarget.parentElement.parentElement.children[3].firstElementChild;
                     valueElement.innerText = result["new_product_total"];
