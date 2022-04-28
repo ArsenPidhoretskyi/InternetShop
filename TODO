@@ -1,21 +1,8 @@
-1) Forms add new product/discount +
- 1.1) Product +
- 1.2) Discount +
-2) Discounts page +
-2.1) Apply discounts to product +
-3) Edit/delete product as admin +
- 3.1) Delete +
- 3.2) Edit +
-4) Button pay must create in database new rows with cart items +
-5) History of all payment +
-
-
-
 Improvements:
 1) Google/Facebook register and login
 2) Main category and subcategory
 3) Filter by category
 4) Payment System
-5) History
-6) Favourite
-7) Edit/delete discount as admin
+5) History +
+6) Favourite +
+7) Edit/delete discount as admin +

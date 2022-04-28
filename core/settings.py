@@ -84,7 +84,7 @@ DATABASES = {
         "NAME": "InternetShop",
         "PASSWORD": "university",
         "HOST": "localhost",
-        "PORT": "2000",
+        "PORT": "5432",
     }
 }
 
