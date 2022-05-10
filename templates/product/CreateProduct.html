@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}New Product{% endblock title %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="d-flex flex-row justify-content-center align-items-center border-0 card">
+        <form method="POST" enctype="multipart/form-data" class="box col-6 mt-3">
+            {% csrf_token %}
+            {{ form.errors }}
+            <p class="text-muted"> Please fill data below</p>
+            <label for="id_name"> Title: </label>
+            {{ form.name }}
+            <label for="id_description"> Description: </label>
+            {{ form.description }}
+            <label for="id_price"> Price: </label>
+            {{ form.price }}
+            <label for="id_available"> Available count: </label>
+            {{ form.available }}
+            <label for="id_image" class="custom-file-upload">Select image for product</label>
+            {{ form.image }}
+            <button class="btn btn-success btn-lg mt-3" type="submit">Create</button>
+        </form>
+    </div>
+{% endblock content %}

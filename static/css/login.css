@@ -1,0 +1,16 @@
+.box {
+    margin-top: 100px;
+    padding: 40px;
+    position: absolute;
+    top: 50%;
+    border-radius: 24px;
+}
+
+.box input:focus {
+    width: 85%;
+    border-color: #2ecc71
+}
+
+.box button:hover {
+    background: #2ecc71
+}

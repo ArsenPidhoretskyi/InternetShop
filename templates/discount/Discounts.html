@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Discounts{% endblock title %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/product.css' %}">
+{% endblock stylesheets %}
+
+{% block content %}
+    {% if discounts != None %}
+        {% for discount in discounts %}
+                {% include 'discount/DiscountItem.html' with discount=discount %}
+        {% endfor %}
+    {% else %}
+        <h3> At current moment no available products</h3>
+    {% endif %}
+{% endblock content %}

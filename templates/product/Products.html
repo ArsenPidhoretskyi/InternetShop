@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Available products{% endblock title %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/layout.css' %}">
+{% endblock stylesheets %}
+
+{% block content %}
+    <div class="row mt-5 mx-2">
+        <div class="col-3">
+            <section class="card box">
+                <div class="card-body">
+                    <form method="GET">
+                        <label for="search" class="d-none"></label>
+                        <input id="search" type="text" name="search" placeholder="Search" class="form-control"
+                                {% if search is not None %}value="{{ search }}"{% endif %}/>
+                        <button class="btn mt-2 btn-primary align-items-center" type="submit" value="Submit">
+                            Search
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+{#            <section class="card box">#}
+{#                <header class="card-header">#}
+{#                    Category#}
+{#                </header>#}
+{#                <div class="card-body">#}
+{#                    <nav class="collapse sub-nav">#}
+{#                        <ul class="ul-without-style mb-0 py-3 pt-md-1">#}
+{#                            {% for category, sub_categories in categories.items %}#}
+{#                                <li class="mb-1">#}
+{#                                    <button class="btn align-items-center rounded collapsed main-type-button"#}
+{#                                            data-bs-toggle="collapse" data-bs-target="#collapse{{ category }}"#}
+{#                                            aria-expanded="false">#}
+{#                                        {{ category }}#}
+{#                                    </button>#}
+{#                                    <div class="collapse" id="collapse{{ category }}">#}
+{#                                        <ul class="ul-without-style fw-normal pb-1 small">#}
+{#                                            {% for sub_category in sub_categories %}#}
+{#                                                <li class="m-2">#}
+{#                                                    <a href="{% url 'products' %}?type={{ sub_category }}"#}
+{#                                                       class="align-items-center rounded">#}
+{#                                                        {{ sub_category }}#}
+{#                                                    </a>#}
+{#                                                </li>#}
+{#                                            {% endfor %}#}
+{#                                        </ul>#}
+{#                                    </div>#}
+{#                                </li>#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{#                    </nav>#}
+{#                </div>#}
+{#            </section>#}
+
+            <section class="card box">
+                <header class="card-header">
+                    Price Range
+                </header>
+                <div class="card-body">
+                    <form method="GET">
+                        <div class="d-flex align-items-center">
+                            <label for="price-min" class="d-none"></label>
+                            <span class="w-25">From:</span>
+                            <input class="price-range" type="number" name="price_min" id="price-min"
+                                   value="{% if price_min %}{{ price_min }}{% else %}{{ price_range.min }}{% endif %}"
+                                   min="{{ price_range.min }}" max="{{ price_range.max }}">
+                        </div>
+                        <div class="mt-2 d-flex align-items-center">
+                            <label for="price-max" class="d-none"></label>
+                            <span class="w-25">To:</span>
+                            <input class="price-range" type="number" name="price_max" id="price-max"
+                                   value="{% if price_max %}{{ price_max }}{% else %}{{ price_range.max }}{% endif %}"
+                                   min="{{ price_range.min }}" max="{{ price_range.max }}">
+                        </div>
+                        <button class="btn mt-2 btn-primary align-items-center"
+                                type="submit" value="Submit">
+                            Filter
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <div class="col-9">
+            {% url 'products' as url %}
+            {% include 'includes/pagination.html' with url=url %}
+
+            {% if products != None %}
+                <div class="product-list">
+                    {% for product in products %}
+                        {% if forloop.counter0|divisibleby:3 %}
+                            <div class="row">
+                        {% endif %}
+
+                    {% include 'product/ProductItem.html' with product=product %}
+
+                    {% if forloop.counter|divisibleby:3 %}
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            {% else %}
+                <h3> At current moment no available products</h3>
+            {% endif %}
+        </div>
+    </div>
+{% endblock content %}
+
+{% block javascripts %}
+    <script>
+        $("button.add-to-cart").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "{% url 'add_to_cart' %}",
+                data: {
+                    id: $(this).val(), // < note use of 'this' here
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                success: function (result) {
+                },
+                error: function (result) {
+                }
+            });
+        });
+    </script>
+{% endblock javascripts %}

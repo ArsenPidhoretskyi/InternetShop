@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}Cart{% endblock title %}
+{% block content %}
+    <form method="POST" action="{% url 'create_order' %}">
+        {% csrf_token %}
+
+        <div class="container mt-5 mb-5">
+            <div class="d-flex justify-content-center row">
+                <div class="col-md-10">
+                    <div class="p-2">
+                        <h4>Shopping cart</h4>
+                    </div>
+
+                    {% for entry in entries %}
+                        {% include 'cart/CartItem.html' with entry=entry %}
+                    {% endfor %}
+
+                    <div class="justify-content-center align-items-center mt-3 p-2 box" id="totalSum">
+                        <h5 class="w-100">{{ cart.total }}</h5>
+                        <button class="w-100 btn btn-success btn-lg ml-2 pay-button" type="submit">
+                            Pay
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock content %}
+
+
+{% block javascripts %}
+    <script>
+        let totalElement = document.querySelector("#totalSum").firstElementChild;
+
+        $("button.remove-one").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "{% url 'remove_from_cart' %}",
+                data: {
+                    id: $(this).val(), // < note use of 'this' here
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                success: function (result) {
+                    let textElement = e.currentTarget.parentElement.children[1];
+                    let previousValue = parseInt(textElement.innerText);
+                    textElement.innerText = result["new_count"];
+
+                    let valueElement = e.currentTarget.parentElement.parentElement.children[3].firstElementChild;
+                    valueElement.innerText = result["new_product_total"];
+                    totalElement.innerText = result["new_total"];
+                },
+                error: function (result) {
+                }
+            });
+        });
+        $("button.add-one").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "{% url 'add_to_cart' %}",
+                data: {
+                    id: $(this).val(), // < note use of 'this' here
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                success: function (result) {
+                    let textElement = e.currentTarget.parentElement.children[1];
+                    let previousValue = parseInt(textElement.innerText);
+                    textElement.innerText = previousValue + 1;
+
+                    let valueElement = e.currentTarget.parentElement.parentElement.children[3].firstElementChild;
+                    valueElement.innerText = result["new_product_total"];
+                    totalElement.innerText = result["new_total"];
+                },
+                error: function (result) {
+                }
+            });
+        });
+        $("button.delete-full").click(function (e) {
+            e.preventDefault();
+            $.ajax({
+                type: "POST",
+                url: "{% url 'delete_from_cart' %}",
+                data: {
+                    id: $(this).val(), // < note use of 'this' here
+                    csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                success: function (result) {
+                    let removedCartElement = e.currentTarget.parentElement.parentElement;
+                    removedCartElement.remove();
+
+                    totalElement.innerText = result["new_total"];
+                },
+                error: function (result) {
+                }
+            });
+        });
+    </script>
+{% endblock javascripts %}

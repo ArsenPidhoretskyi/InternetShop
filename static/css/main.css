@@ -1,0 +1,112 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: linear-gradient(to right, #b92b27, #1565c0)
+}
+
+.sub-nav {
+    display: block !important;
+}
+
+.sub-nav a {
+    text-decoration: none;
+    display: block !important;
+}
+
+.ul-without-style {
+    padding-left: 0;
+    list-style: none;
+}
+
+.add-to-cart {
+    background: #fc5959;
+    width: 50px;
+    min-height: 50px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    border: 3px solid #fff;
+}
+
+.add-to-cart i {
+    color: #fff;
+    font-size: 25px;
+    line-height: 42px;
+}
+
+.black-white-icons {
+    background: black;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    color: white;
+    display: inline-block;
+    text-align: center;
+    border: none !important;
+}
+
+.black-white-icons i {
+    color: white;
+    font-size: 25px;
+    line-height: 42px;
+}
+
+.box {
+    color: white !important;
+    background: #191919;
+    text-align: center;
+    transition: 0.25s;
+    border-radius: 6px;
+}
+
+.box input, .box select, .box button, .custom-file-upload, .box div.form-floating, .box .standard-button {
+    background: none;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    outline: none;
+    border-radius: 24px;
+    transition: 0.25s;
+    color: white;
+}
+
+.box div.form-floating{
+    width: 75%;
+}
+
+.box > input, .box > select, .box > button, .custom-file-upload{
+    width: 75%;
+}
+
+.box input, .box select {
+    border: 2px solid #3498db;
+    padding: 10px 10px;
+}
+
+.box button, .box .standard-button {
+    border: 2px solid #2ecc71;
+    cursor: pointer;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    margin-top: 1rem;
+    border: 2px solid #b7cc2e;
+    padding: 10px 10px;
+    transition: 0.5s;
+}
+
+.custom-file-upload:hover, .custom-file-upload:active {
+    background-color: #b7cc2e;
+}
+
+.box .standard-button:hover, .box .standard-button:active{
+    background-color: #146c43;
+}

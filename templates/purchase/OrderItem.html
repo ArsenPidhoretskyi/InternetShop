@@ -1,0 +1,14 @@
+<div class="box p-2 mt-4 px-3">
+    {% for purchase in order.purchase_set.all %}
+        {% include 'purchase/PurchasedItem.html' with purchase=purchase %}
+    {% endfor %}
+
+    <div class="d-flex flex-row justify-content-between align-items-center p-2 px-3">
+        <div class="mr-1 col-11"> Total </div>
+        <div class="col-1">
+            <h5>
+                {{ order.total }}
+            </h5>
+        </div>
+    </div>
+</div>

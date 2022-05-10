@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ discount.product.name }} -{{ discount.value }}%{% endblock title %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/product.css' %}">
+{% endblock stylesheets %}
+
+{% block content %}
+    {% include 'discount/DiscountItem.html' %}
+{% endblock content %}
